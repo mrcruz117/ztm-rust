@@ -12,9 +12,13 @@ fn add(a: i32, b: i32) -> i32 {
     a + b
 }
 
+fn display(result: i32) {
+    println!("{:?}", result);
+}
+
 fn main() {
     let a = 5;
     let b = 7;
     let result = add(a, b);
-    println!("{:?}", result);
+    display(result);
 }
