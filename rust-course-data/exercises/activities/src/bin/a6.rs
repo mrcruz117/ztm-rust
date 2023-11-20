@@ -10,4 +10,15 @@
 // * Print the variable within the while loop
 // * Do not use break to exit the loop
 
-fn main() {}
+fn count_down_from_n (n: i32) {
+    let mut i = n;
+    while i > 0 {
+        println!("{}", i);
+        i -= 1;
+    }
+    println!("done!");
+}
+
+fn main() {
+    count_down_from_n(10);
+}
