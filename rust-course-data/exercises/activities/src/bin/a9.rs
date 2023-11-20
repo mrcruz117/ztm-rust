@@ -9,12 +9,8 @@
 // * Destructure the return value into two variables
 // * Use an if..else if..else block to determine what to print
 
-fn coordinate() -> (i32, i32) {
-    (3, 4)
-}
-
-fn print() {
-    let (x, y) = coordinate();
+fn print(coordinate: (i32, i32)) {
+    let (x, y) = coordinate;
     if y > 5 {
         println!("greater than 5");
     } else if y < 5 {
@@ -25,5 +21,9 @@ fn print() {
 }
 
 fn main() {
-    print();
+    fn coordinate_gen() -> (i32, i32) {
+        (3, 5)
+    }
+    let coordinate = coordinate_gen();
+    print(coordinate);
 }
