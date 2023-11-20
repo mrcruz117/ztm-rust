@@ -5,9 +5,19 @@
 // * When the variable is set to true, display "hello"
 // * When the variable is set to false, display "goodbye"
 //
+fn bool_func() {
+    let boolean = true;
+    if boolean {
+        println!("hello");
+    } else {
+        println!("goodbye");
+    }
+}
 // Notes:
 // * Use a variable set to either true or false
 // * Use an if..else block to determine which message to display
 // * Use the println macro to display messages to the terminal
 
-fn main() {}
+fn main() {
+    bool_func();
+}
