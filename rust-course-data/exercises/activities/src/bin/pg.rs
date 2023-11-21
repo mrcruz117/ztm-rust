@@ -1,23 +1,26 @@
 // coding playground for Rust
-struct Book {
-    pages: i32,
-    rating: i32,
+struct Temperature {
+    degrees_f: f64,
 }
 
-fn display_page_count(book: &Book) {
-    println!("This book has {:?} pages", book.pages);
-}
+impl Temperature {
+    fn freezing() -> Self {
+        Self { degrees_f: 32.0 }
+    }
 
-fn display_rating(book: Book) {
-    println!("This book is rated {:?}", book.rating);
+    fn show_temp(&self) {
+        println!("The temperature is {}°F", self.degrees_f);
+    }
 }
 
 fn main() {
-    let book = Book {
-        pages: 100,
-        rating: 5,
-    };
+    let hot = Temperature { degrees_f: 99.9 };
+    hot.show_temp();
 
-    display_page_count(&book);
-    display_rating(book);
+    let cold = Temperature::freezing();
+    cold.show_temp();
+    cold.show_temp();
+    cold.show_temp();
+    cold.show_temp();
+    cold.show_temp();
 }
