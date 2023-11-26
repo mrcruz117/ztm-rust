@@ -6,8 +6,24 @@
 //
 // Notes:
 // * Use a vector to store 4 numbers
+
 // * Iterate through the vector using a for..in loop
 // * Determine whether to print the number or print "thirty" inside the loop
 // * Use the .len() function to print the number of elements in a vector
 
-fn main() {}
+fn prnt_vect_elements() {
+    let vect: Vec<i32> = vec![10, 20, 30, 40];
+
+    for i in &vect {
+        match i {
+            30 => println!("thirty"),
+            _ => println!("{}", i),
+        }
+    }
+
+    println!("The vector has {} elements", vect.len());
+}
+
+fn main() {
+    prnt_vect_elements();
+}
