@@ -21,7 +21,6 @@ impl Color {
         match self {
             Color::Brown => println!("Brown"),
             Color::White => println!("White"),
-            Color::Black => println!("Black"),
         }
     }
 }
