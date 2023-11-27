@@ -1,13 +1,26 @@
 // coding playground for Rust
 
-fn prnt_vect_elements(vect: &Vec<i32>) {
-    for i in vect {
-        println!("{}", i);
-    }
+#[derive(Debug, Clone, Copy)]
+enum Position {
+    Manager,
+    Supervisor,
+    Worker,
+}
+#[derive(Debug, Clone, Copy)]
+struct Employee {
+    position: Position,
+    work_hours: i64,
+}
+
+fn print_employee(employee: Employee) {
+    println!("{:?}", employee);
 }
 
 fn main() {
-    let vect: Vec<i32> = vec![1, 2, 3, 4, 5];
-
-    prnt_vect_elements(&vect);
+    let me = Employee {
+        position: Position::Worker,
+        work_hours: 40,
+    };
+    print_employee(me);
+    print_employee(me);
 }
