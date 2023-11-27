@@ -14,7 +14,6 @@
 enum Color {
     Brown,
     White,
-    Black,
 }
 
 impl Color {
@@ -79,5 +78,4 @@ fn main() {
 
     let large_box = Box::new(10.0, Color::White, large_dimensions);
     large_box.print();
-    
 }
