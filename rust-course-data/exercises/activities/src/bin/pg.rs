@@ -1,37 +1,25 @@
 // coding playground for Rust
-
-enum Discount {
-    Percent(f64),
-    Flat(f64),
+struct Survey {
+    q1: Option<i32>,
+    q2: Option<bool>,
+    q3: Option<String>,
 }
-
-struct Ticket {
-    event: String,
-    price: i32,
-}
-
 fn main() {
-    let n = 5;
-    match n {
-        1 => println!("One"),
-        2 => println!("Two"),
-        3 => println!("Three"),
-        other => println!("Other: {:?}", other),
-    }
-
-    let flat = Discount::Flat(10.0);
-    match flat {
-        Discount::Flat(amount) => println!("Flat: {}", amount),
-        Discount::Percent(percent) => println!("Percent: {}", percent),
-    }
-
-    let concert = Ticket {
-        event: "Concert".to_owned(),
-        price: 51,
+    let response = Survey {
+        q1: None,
+        q2: Some(true),
+        q3: Some("hello".to_owned()),
     };
-
-    match concert {
-        Ticket { price: 50, event } => println!("Event: {}", event),
-        Ticket { event, price } => println!("Event: {}, Price: {}", event, price),
+    match response.q1 {
+        Some(ans) => println!("q1: {}", ans),
+        None => println!("q1: N/A"),
+    }
+    match response.q2 {
+        Some(ans) => println!("q2: {}", ans),
+        None => println!("q2: N/A"),
+    }
+    match response.q3 {
+        Some(ans) => println!("q3: {}", ans),
+        None => println!("q3: N/A"),
     }
 }
