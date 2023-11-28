@@ -11,4 +11,22 @@
 // * Return a result from the function
 // * The Err variant should detail the reason why they cannot make a purchase
 
-fn main() {}
+struct Customer {
+    age: u8,
+}
+
+fn can_make_restricted_purchase(customer: &Customer) -> Result<(), String> {
+    if customer.age >= 21 {
+        Ok(())
+    } else {
+        Err("Customer is not old enough to make a restricted purchase".to_string())
+    }
+}
+
+fn main() {
+    let customer = Customer { age: 22 };
+    match can_make_restricted_purchase(&customer) {
+        Ok(_) => println!("Customer can make a restricted purchase"),
+        Err(e) => println!("Customer cannot make a restricted purchase: {}", e),
+    }
+}
