@@ -1,25 +1,10 @@
 // coding playground for Rust
-struct Survey {
-    q1: Option<i32>,
-    q2: Option<bool>,
-    q3: Option<String>,
-}
+
 fn main() {
-    let response = Survey {
-        q1: None,
-        q2: Some(true),
-        q3: Some("hello".to_owned()),
-    };
-    match response.q1 {
-        Some(ans) => println!("q1: {}", ans),
-        None => println!("q1: N/A"),
-    }
-    match response.q2 {
-        Some(ans) => println!("q2: {}", ans),
-        None => println!("q2: N/A"),
-    }
-    match response.q3 {
-        Some(ans) => println!("q3: {}", ans),
-        None => println!("q3: N/A"),
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    match numbers.is_empty() {
+        true => println!("No numbers"),
+        false => println!("{} numbers", numbers.len()),
     }
 }
