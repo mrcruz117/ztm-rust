@@ -22,4 +22,41 @@
 // * Print whether the employee may access the building
 //   * Must use a function that utilizes the question mark operator to do this
 
-fn main() {}
+enum EmployeeType {
+    Maintenance,
+    Marketing,
+    Manager,
+    Supervisor,
+    Kitchen,
+    Assembly,
+}
+struct Employee {
+    name: String,
+    employee_type: EmployeeType,
+    active: bool,
+}
+
+fn access_building(employee: &Employee) -> Result<(), String> {
+    if !employee.active {
+        return Err(String::from("not active employee"));
+    }
+    match employee.employee_type {
+        EmployeeType::Maintenance => Ok(()),
+        EmployeeType::Marketing => Ok(()),
+        EmployeeType::Manager => Ok(()),
+        _ => Err(String::from("Access denied")),
+    }
+}
+
+fn main() {
+    let emp = Employee {
+        name: String::from("John"),
+        employee_type: EmployeeType::Maintenance,
+        active: false,
+    };
+    let result = access_building(&emp);
+    match result {
+        Ok(()) => println!("Access granted"),
+        Err(err) => println!("Access denied: {}", err),
+    }
+}
