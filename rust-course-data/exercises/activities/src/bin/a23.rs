@@ -26,7 +26,8 @@ fn part_2() -> Option<Access> {
 fn part_3() -> Access {
     // "Alice" is not a listed user, so she will be a guest.
     // Note: Use unwrap_or_else.
-    maybe_access("Alice").unwrap_or_else(|| Access::Guest)
+    maybe_access("Alice").unwrap_or(Access::Guest)
+
 }
 
 #[derive(Debug, Eq, PartialEq)]
