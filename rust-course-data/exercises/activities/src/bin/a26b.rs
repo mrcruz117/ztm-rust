@@ -58,14 +58,15 @@ fn main() {
     println!("(2 + 2 - 1) * 3 = {}", result);
 
     // Part 2: string functions
+    use msg::{capitalize, exciting, trim};
     let hello = {
         let msg = "hello ";
-        let msg = msg::trim(msg);
-        msg::capitalize(msg)
+        let msg = trim(msg);
+        capitalize(msg)
     };
     let world = {
         let msg = "world";
-        msg::exciting(msg)
+        exciting(msg)
     };
     let msg = format!("{}, {}", hello, world);
 
