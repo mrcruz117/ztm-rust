@@ -28,5 +28,62 @@
 //   the functionality for that menu in isolation.
 // * A vector is the easiest way to store the bills at stage 1, but a
 //   hashmap will be easier to work with at stages 2 and 3.
+use std::io;
+enum MainMenu {
+    Add,
+    View,
+    Edit,
+    Remove,
+    Quit,
+}
 
-fn main() {}
+impl MainMenu {
+    fn from_str(input: &str) -> Option<MainMenu> {
+        match input {
+            "1" => Some(MainMenu::Add),
+            "2" => Some(MainMenu::View),
+            "3" => Some(MainMenu::Edit),
+            "4" => Some(MainMenu::Remove),
+            "5" => Some(MainMenu::Quit),
+            _ => None,
+        }
+    }
+    fn show() {
+        println!("1. Add");
+        println!("2. View");
+        println!("3. Edit");
+        println!("4. Remove");
+        println!("5. Quit");
+        print!("Enter choice: ");
+    }
+}
+
+fn get_input() -> Option<String> {
+    let mut buffer = String::new();
+    while io::stdin().read_line(&mut buffer).is_err() {
+        println!("Error reading input");
+    }
+    let input = buffer.trim().to_lowercase();
+    if &input == "" {
+        None
+    } else {
+        Some(input)
+    }
+}
+
+fn main() {
+    loop {
+        // display menu
+        MainMenu::show();
+        let input = get_input().expect("Error reading input");
+        // make choice based on input
+        match MainMenu::from_str(input.as_str()) {
+            Some(MainMenu::Add) => println!("Add"),
+            Some(MainMenu::View) => println!("View"),
+            Some(MainMenu::Edit) => println!("Edit"),
+            Some(MainMenu::Remove) => println!("Remove"),
+            Some(MainMenu::Quit) => break,
+            None => return,
+        }
+    }
+}
