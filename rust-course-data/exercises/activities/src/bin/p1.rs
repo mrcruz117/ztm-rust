@@ -77,7 +77,7 @@ impl MainMenu {
         println!("3. Edit");
         println!("4. Remove");
         println!("5. Quit");
-        print!("Enter choice: ");
+        println!("Enter choice: ");
     }
 }
 
@@ -94,15 +94,58 @@ fn get_input() -> Option<String> {
     }
 }
 
+fn get_bill_amount() -> Option<f64> {
+    println!("Bill Amount:");
+    loop {
+        let amount = match get_input() {
+            Some(amount) => amount,
+            None => return None,
+        };
+        if &amount == "" {
+            return None;
+        }
+        let parsed_amount: Result<f64, _> = amount.parse();
+        match parsed_amount {
+            Ok(amount) => return Some(amount),
+            Err(_) => println!("Please enter a number"),
+        }
+    }
+}
+
+mod menu {
+    use crate::{get_bill_amount, get_input, Bill, Bills};
+    pub fn add_bill(bills: &mut Bills) {
+        println!("Bill Name:");
+        let name = match get_input() {
+            Some(name) => name,
+            None => return,
+        };
+        let amount = match get_bill_amount() {
+            Some(amount) => amount,
+            None => return,
+        };
+        let bill = Bill { name, amount };
+        bills.add(bill);
+        print!("Bill added");
+    }
+
+    pub fn view_bills(bills: &Bills) {
+        for bill in bills.get_all() {
+            println!("{:?}", bill);
+        }
+    }
+}
+
 fn main() {
+    let mut bills = Bills::new();
     loop {
         // display menu
         MainMenu::show();
         let input = get_input().expect("Error reading input");
         // make choice based on input
         match MainMenu::from_str(input.as_str()) {
-            Some(MainMenu::Add) => println!("Add"),
-            Some(MainMenu::View) => println!("View"),
+            Some(MainMenu::Add) => menu::add_bill(&mut bills),
+            Some(MainMenu::View) => menu::view_bills(&bills),
             Some(MainMenu::Edit) => println!("Edit"),
             Some(MainMenu::Remove) => println!("Remove"),
             Some(MainMenu::Quit) => break,
