@@ -1,28 +1,51 @@
 // coding playground for Rust
-use std::io;
+trait CheckIn {
+    fn check_in(&self);
+    fn process(&self);
+}
 
-fn get_input() -> io::Result<String> {
-    let mut buffer = String::new();
-    io::stdin().read_line(&mut buffer)?;
-    Ok(buffer.trim().to_owned())
+struct Pilot;
+impl CheckIn for Pilot {
+    fn check_in(&self) {
+        println!("Pilot checking in");
+    }
+    fn process(&self) {
+        println!("Pilot processing");
+    }
+}
+struct Passenger;
+impl CheckIn for Passenger {
+    fn check_in(&self) {
+        println!("Passenger checking in");
+    }
+    fn process(&self) {
+        println!("Passenger processing");
+    }
+}
+
+struct Cargo;
+impl CheckIn for Cargo {
+    fn check_in(&self) {
+        println!("Cargo checking in");
+    }
+    fn process(&self) {
+        println!("Cargo processing");
+    }
+}
+
+fn process_item<T: CheckIn>(item: T) {
+    item.check_in();
+    item.process();
 }
 
 fn main() {
-    let mut all_input = vec![];
-    let mut times_input = 0;
+    let pilot = Pilot;
+    let passenger = Passenger;
+    let cargo1 = Cargo;
+    let cargo2 = Cargo;
 
-    while times_input < 2 {
-        match get_input() {
-            Ok(words) => {
-                all_input.push(words);
-                times_input += 1;
-            }
-            Err(error) => println!("error: {}", error),
-        }
-     
-
-        for input in &all_input {
-            println!("Original: {}, Capped: {}", input, input.to_uppercase());
-        }
-    }
+    process_item(pilot);
+    process_item(passenger);
+    process_item(cargo1);
+    process_item(cargo2);
 }
