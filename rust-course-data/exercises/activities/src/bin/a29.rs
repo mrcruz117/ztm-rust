@@ -27,6 +27,11 @@ impl Priority for ImportantGuest {
     }
 }
 
+fn print_guest_priority<T: Priority + std::fmt::Debug>(guest: T) {
+    println!("priority: ");
+    println!("{:?}", guest);
+}
+
 #[derive(Debug)]
 struct Guest;
 impl Priority for Guest {
@@ -35,4 +40,9 @@ impl Priority for Guest {
     }
 }
 
-fn main() {}
+fn main() {
+    let guest1 = ImportantGuest;
+    let guest2 = Guest;
+    print_guest_priority(guest1);
+    print_guest_priority(guest2);
+}
