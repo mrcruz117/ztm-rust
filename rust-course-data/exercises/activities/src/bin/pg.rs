@@ -1,51 +1,74 @@
 // coding playground for Rust
-trait CheckIn {
-    fn check_in(&self);
-    fn process(&self);
+
+#[derive(Debug)]
+struct Dimensions {
+    width: f64,
+    height: f64,
+    depth: f64,
 }
 
-struct Pilot;
-impl CheckIn for Pilot {
-    fn check_in(&self) {
-        println!("Pilot checking in");
-    }
-    fn process(&self) {
-        println!("Pilot processing");
-    }
-}
-struct Passenger;
-impl CheckIn for Passenger {
-    fn check_in(&self) {
-        println!("Passenger checking in");
-    }
-    fn process(&self) {
-        println!("Passenger processing");
-    }
+trait Convey {
+    fn weight(&self) -> f64;
+    fn dimensions(&self) -> Dimensions;
 }
 
-struct Cargo;
-impl CheckIn for Cargo {
-    fn check_in(&self) {
-        println!("Cargo checking in");
-    }
-    fn process(&self) {
-        println!("Cargo processing");
+struct ConveyorBelt<T: Convey> {
+    pub items: Vec<T>,
+}
+
+impl<T: Convey> ConveyorBelt<T> {
+    pub fn add(&mut self, item: T) {
+        self.items.push(item);
     }
 }
 
-fn process_item<T: CheckIn>(item: T) {
-    item.check_in();
-    item.process();
+struct CarPart {
+    width: f64,
+    height: f64,
+    depth: f64,
+    weight: f64,
+    part_number: String,
+}
+
+impl Default for CarPart {
+    fn default() -> Self {
+        Self {
+            width: 5.0,
+            height: 1.0,
+            depth: 2.0,
+            weight: 3.0,
+            part_number: "1234".to_string(),
+        }
+    }
+}
+impl Convey for CarPart {
+    fn weight(&self) -> f64 {
+        self.weight
+    }
+    fn dimensions(&self) -> Dimensions {
+        Dimensions {
+            width: self.width,
+            height: self.height,
+            depth: self.depth,
+        }
+    }
 }
 
 fn main() {
-    let pilot = Pilot;
-    let passenger = Passenger;
-    let cargo1 = Cargo;
-    let cargo2 = Cargo;
+    let mut belt: ConveyorBelt<CarPart> = ConveyorBelt { items: vec![] };
+    let part = CarPart {
+        width: 1.0,
+        height: 2.0,
+        depth: 3.0,
+        weight: 4.0,
+        part_number: "1234".to_string(),
+    };
+    let default_part = CarPart::default();
+    belt.add(part);
+    belt.add(default_part);
 
-    process_item(pilot);
-    process_item(passenger);
-    process_item(cargo1);
-    process_item(cargo2);
+    for item in belt.items {
+        println!("weight: {}", item.weight());
+        println!("dimensions: {:?}", item.dimensions());
+    }
 }
